@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@codewith_muhilan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+      :root {
+    --scrollcolor: #fff;
+    --scrollbackground: #141e27;
+  }
+  
+  * {
+    box-sizing: border-box;
+  }
+  
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+  }
+  
+  body {
+    background: #000;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-family: system-ui;
+    line-height: 1.1;
+    font-weight: 300;
+    color: #fff;
+    margin: 4rem auto 1rem;
+    width: 85%;
+    max-width: 1280px;
+  }
+  
+  .slider {
+    width: 85%;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  
+  .slider__content {
+    overflow-x: scroll;
+    -ms-scroll-snap-type: x mandatory;
+        scroll-snap-type: x mandatory;
+    display: flex;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    scrollbar-color: var(--scrollcolor) var(--scrollbackground);
+  }
+  .slider__content::-webkit-scrollbar {
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 1rem;
+    background: var(--scrollbackground);
+  }
+  .slider__content::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: var(--scrollcolor);
+  }
+  .slider__content::-webkit-scrollbar-track {
+    border-radius: 1rem;
+    background: var(--scrollbackground);
+  }
+  
+  .slider__item {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-width: 100%;
+    width: 100%;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+  }
+  @media (min-width: 460px) {
+    .slider__item {
+      aspect-ratio: 2/3;
+      min-width: calc((100% / 2) - 2rem);
+    }
+  }
+  @media (min-width: 940px) {
+    .slider__item {
+      min-width: calc((100% / 3) - 4rem);
+    }
+  }
+  
+  .slider__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .slider__info {
+    position: relative;
+    padding: 4rem 2rem 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(32, 50, 57, 0));
+  }
+  .slider__info h2 {
+    color: #fff;
+    font-family: system-ui;
+    line-height: 1.1;
+    font-weight: 300;
+    font-size: 1.75rem;
+    margin: 0;
+  }
+  
+  .slider__nav {
+    margin: 1rem 0 4rem;
+    width: 100%;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    align-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+  @media (min-width: 460px) {
+    .slider__nav {
+      justify-content: flex-end;
+    }
+  }
+  
+  .slider__nav__button {
+    margin: 0;
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border: 0;
+    border-radius: 2rem;
+    background: #fff;
+    color: #203239;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    pointer-events: none;
+    transition: 0.2s ease-out;
+    opacity: 0.25;
+  }
+  .slider__nav__button--active {
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  
+/* -- YouTube Link Styles -- */
+
+#source-link {
+  top: 60px;
+}
+
+#source-link > i {
+  color: rgb(94, 106, 210);
+}
+
+#yt-link {  
+  top: 10px;
+}
+
+#yt-link > i {
+  color: rgb(219, 31, 106); 
+
+}
+
+.meta-link {
+  align-items: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;  
+  display: inline-flex;
+  gap: 5px;
+  left: 10px;
+  padding: 10px 20px;
+  position: fixed;
+  text-decoration: none;
+  transition: background-color 600ms, border-color 600ms;
+  z-index: 10000;
+}
+
+.meta-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.meta-link > i, .meta-link > span {
+  height: 20px;
+  line-height: 20px;
+}
+
+.meta-link > span {
+  color: white;
+  font-family: "Rubik", sans-serif;
+  transition: color 600ms;
+}
+
+
+    </style>
+
+</head>
+<body>
+    <h1 class="title">Alpine slider</h1>
+<div class="slider" x-data="{start: true, end: false}">
+  <div class="slider__content" x-ref="slider" x-on:scroll.debounce="$refs.slider.scrollLeft == 0 ? start = true : start = false; Math.abs(($refs.slider.scrollWidth - $refs.slider.offsetWidth) - $refs.slider.scrollLeft) < 5 ? end = true : end = false;">
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1599422314077-f4dfdaa4cd09?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODR8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzB8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1608501821300-4f99e58bba77?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTAxfHxhYnN0cmFjdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1604871000636-074fa5117945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzF8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1555448248-2571daf6344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NzB8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1608501821300-4f99e58bba77?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTAxfHxhYnN0cmFjdHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1553356084-58ef4a67b2a7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1604871000636-074fa5117945?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzF8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+    <div class="slider__item">
+      <img class="slider__image" src="https://images.unsplash.com/photo-1555448248-2571daf6344b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NTh8fGFic3RyYWN0fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60" alt="Image">
+      <div class="slider__info">
+        <h2>This is a card</h2>
+      </div>
+    </div>
+  </div>
+  <div class="slider__nav">
+    <button class="slider__nav__button" x-on:click="$refs.slider.scrollBy({left: $refs.slider.offsetWidth * -1, behavior: 'smooth'});" x-bind:class="start ? '' : 'slider__nav__button--active'">Previous</button>
+    <button class="slider__nav__button" x-on:click="$refs.slider.scrollBy({left: $refs.slider.offsetWidth, behavior: 'smooth'});" x-bind:class="end ? '' : 'slider__nav__button--active'">Next</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
+
+
+  <!--Social Liks codings below-->
+  <a id="source-link" class="meta-link" href="https://t.me/+7yc_oGHnLJhlOWVl" target="_blank">
+    <i class="fas fa-link"></i>
+    <span class="roboto-mono">Join my Telegram</span>
+</a>
+
+<a id="yt-link" class="meta-link" href="https://www.youtube.com/@codewith_muhilan?sub_confirmation=1" target="_blank">
+  <i class="fab fa-youtube"></i>
+  <span>Subscribe my channel..❤</span>
+</a>
+
+
+</body>
+</html>
