@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    <style>
+html,body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto","Helvetica", sans-serif;
+  transition: background-color 0.2s;
+  will-change: background-color;
+}
+
+  .inspired-by {
+    display: block;
+    position: relative;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+  }
+
+.wrapper {
+  position: relative;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  display: block;
+  position: absolute;
+  top: 25px;
+  margin: 0 auto;
+  width: 350px;
+  background-color: #fff;
+  border-radius: 15px;
+
+  box-shadow: 0 30 50 rgba(0, 0, 0, 0.2);
+
+  transform: translateX(-50%);
+  transition: left 0.5s ease-out;
+  will-change: left;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
+.card--19 {
+  left: 50%;
+}
+.card--solstice,
+.card--huarache {
+  left: 150%;
+}
+
+  .card__header {
+    position: relative;
+    height: 170px;
+    padding: 30px 30px 300px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    color: #fff;
+  }
+
+.card__header--19 {
+  background-color: #F72648;
+  background-image: linear-gradient(#F72648, #FCCB3C);
+
+  background: #F72648;
+  background: linear-gradient(#F72648, #FCCB3C);
+}
+
+.card__header--solstice {
+  background-color: #3CA3FC;
+  background-image: linear-gradient(#3CA3FC, #FFD300);
+
+  background: #3CA3FC;
+  background: linear-gradient(#3CA3FC, #FFD300);
+}
+
+.card__header--huarache {
+  background-color: #26C9F7;
+  background-image: linear-gradient(#26C9F7, #DFFC3C);
+
+  background: #26C9F7;
+  background: linear-gradient(#26C9F7, #DFFC3C);
+}
+
+.card__watermark {
+  overflow: hidden;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+}
+
+.card__watermark::after {
+  content: attr(data-watermark);
+  position: relative;
+  left: -20px;
+  color: rgba(0, 0, 0, .3);
+  font-size: 240px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+  .card__logo {
+    width: 50px;
+    height: auto;
+  }
+
+    .card__price {
+      float: right;
+      font-size: 16px;
+      font-weight: 300;
+    }
+    .card__title {
+      margin: 35px 0 20px;
+      font-size: 15px;
+      line-height: 1.1em;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+.card__subtitle {
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+}
+.card__body {
+  position: relative;
+  padding: 40px 30px 20px;
+}
+
+  .card__image {
+    z-index: 1;
+    position: absolute;
+    top: -290px;
+    left: -30px;
+    width: 125%;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+
+.card__wish-list {
+  display: block;
+  width: 50%;
+  margin: 0 auto 15px;
+  padding: 15px;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.card__wish-list--19 {
+  color: #8850FF;
+  border-color: #8850FF;
+}
+
+.card__wish-list--solstice {
+  color: #FFBA00;
+  border-color: #FFBA00;
+}
+
+.card__wish-list--huarache {
+  color: #26C9F7;
+  border-color: #26C9F7;
+}
+
+.card__category {
+  display: block;
+  font-size: 12px;
+  color: #AEAEAE;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+  .card__will-animate {
+    will-change: transform;
+  }
+
+.cards-placeholder {
+  display: block;
+  position: relative;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.cards-placeholder__item {
+  opacity: 0.3;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: #fff;
+  width: 30px;
+  height: 5px;
+  border-radius: 5px;
+
+  transition: opacity 0.2s;
+  will-change: opacity;
+}
+
+.cards-placeholder__item--active {
+  opacity: 1;
+}
+
+
+/* -- YouTube Link Styles -- */
+
+#source-link {
+  top: 60px;
+}
+
+#source-link > i {
+  color: rgb(94, 106, 210);
+}
+
+#yt-link {  
+  top: 10px;
+}
+
+#yt-link > i {
+  color: rgb(219, 31, 106); 
+
+}
+
+.meta-link {
+  align-items: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;  
+  display: inline-flex;
+  gap: 5px;
+  left: 10px;
+  padding: 10px 20px;
+  position: fixed;
+  text-decoration: none;
+  transition: background-color 600ms, border-color 600ms;
+  z-index: 10000;
+}
+
+.meta-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.meta-link > i, .meta-link > span {
+  height: 20px;
+  line-height: 20px;
+}
+
+.meta-link > span {
+  color: white;
+  font-family: "Rubik", sans-serif;
+  transition: color 600ms;
+}
+
+
+    </style>
+</head>
+<body>
+    <!--
+  Inspired by Jardson Almeida
+  https://dribbble.com/shots/2518516-Nike-Promotion-Ads-Parallax-Effect
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Nike Parallax Cards</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+  </head>
+  <body>
+
+    <div class="wrapper">
+
+      <!-- Nike 19 -->
+      <div class="card card--19">
+        <div class="card__header card__header--19">
+          <div class="card__watermark" data-watermark="Air"></div>
+
+          <img src="https://i.ibb.co/q7RKcZk/nike.png" alt="Nike" class="card__logo card__will-animate">
+
+          <span class="card__price card__will-animate">$120</span>
+
+          <h1 class="card__title card__will-animate">Air Structure 1</h1>
+          <span class="card__subtitle card__will-animate">From the Flymesh upper to the triple-density foam midsole, the Nike Air Zoom Structure 19 Men's Running Shoe offers plenty of support and the response you need for a smooth, stable ride that feels ultra fast.</span>
+
+        </div>
+
+        <div class="card__body">
+          <img src="https://i.ibb.co/R0Y8T8r/nike19.png" alt="Nike 19" class="card__image card__will-animate">
+          <div class="card__wish-list card__wish-list--19 card__will-animate">Wish List</div>
+
+          <span class="card__category card__will-animate">Men's running shoe</span>
+        </div>
+      </div>
+
+      <!-- Nike Solstice -->
+      <div class="card card--solstice">
+        <div class="card__header card__header--solstice">
+          <div class="card__watermark" data-watermark="Classic"></div>
+
+          <img src="https://i.ibb.co/q7RKcZk/nike.png" alt="Nike" class="card__logo card__will-animate">
+
+          <span class="card__price card__will-animate">$129</span>
+
+          <h1 class="card__title card__will-animate">Air Solstice QS</h1>
+          <span class="card__subtitle card__will-animate">The Nike Air Solstice draws inspiration from the swoosh's classic running shoes of the 1980's updating the style with premium materials and impressive production quality.</span>
+
+        </div>
+
+        <div class="card__body">
+          <img src="https://i.ibb.co/ZMVHp6x/nike-air-solstice.png" alt="Nike Solstice" class="card__image card__will-animate">
+          <div class="card__wish-list card__wish-list--solstice card__will-animate">Wish List</div>
+
+          <span class="card__category card__will-animate">Men's shoe</span>
+        </div>
+      </div>
+
+      <!-- Nike Huarache -->
+      <div class="card card--huarache">
+        <div class="card__header card__header--huarache">
+          <div class="card__watermark" data-watermark="Safari"></div>
+
+          <img src="https://i.ibb.co/q7RKcZk/nike.png" alt="Nike" class="card__logo card__will-animate">
+
+          <span class="card__price card__will-animate">$140</span>
+
+          <h1 class="card__title card__will-animate">Air Huarache Utility</h1>
+          <span class="card__subtitle card__will-animate">The Nike Air Huarache Utility Men's Shoe toughens up a famous running shoe with a nylon upper, fused mudguard and vibrant detail.</span>
+
+        </div>
+
+        <div class="card__body">
+          <img src="https://i.ibb.co/9bc3SYK/nike-safari.png" alt="Nike Huarache" class="card__image card__will-animate">
+          <div class="card__wish-list card__wish-list--solstice card__will-animate">Wish List</div>
+
+          <span class="card__category card__will-animate">Men's shoe</span>
+        </div>
+      </div>
+
+    </div> <!-- /wrapper -->
+
+    <div class="cards-placeholder">
+      <div class="cards-placeholder__item"></div>
+      <div class="cards-placeholder__item"></div>
+      <div class="cards-placeholder__item"></div>
+    </div>
+
+    
+  <!--Social Liks codings below-->
+  <a id="source-link" class="meta-link" href="https://t.me/+7yc_oGHnLJhlOWVl" target="_blank">
+    <i class="fas fa-link"></i>
+    <span class="roboto-mono">Join my Telegram</span>
+</a>
+
+<a id="yt-link" class="meta-link" href="https://www.youtube.com/@codewith_muhilan?sub_confirmation=1" target="_blank">
+  <i class="fab fa-youtube"></i>
+  <span>Subscribe my channel..❤</span>
+</a>
+
+
+
+    <script>
+        (function () {
+  'use strict';
+
+  var BODY_BACKGROUNDS = [
+    '#8850FF',
+    '#FFBA00',
+    '#4054FF'
+  ];
+
+  function Slider () {
+    this.cards = document.querySelectorAll('.card');
+    this.currentIndex = 0;
+
+    this.isDragging = false;
+    this.startX = 0;
+    this.currentX = 0;
+
+    this.initEvents();
+    this.setActivePlaceholder();
+  }
+
+  // initialize drag events
+  Slider.prototype.initEvents = function () {
+    document.addEventListener('touchstart', this.onStart.bind(this));
+    document.addEventListener('touchmove', this.onMove.bind(this));
+    document.addEventListener('touchend', this.onEnd.bind(this));
+
+    document.addEventListener('mousedown', this.onStart.bind(this));
+    document.addEventListener('mousemove', this.onMove.bind(this));
+    document.addEventListener('mouseup', this.onEnd.bind(this));
+
+  };
+
+  // set active placeholder
+  Slider.prototype.setActivePlaceholder = function () {
+    var placeholders = document.querySelectorAll('.cards-placeholder__item');
+    var activePlaceholder = document.querySelector('.cards-placeholder__item--active')
+
+    if (activePlaceholder) {
+      activePlaceholder.classList.remove('cards-placeholder__item--active');
+    }
+
+    placeholders[this.currentIndex].classList.add('cards-placeholder__item--active');
+
+    var bodyEl = document.querySelector('body');
+    bodyEl.style.backgroundColor = BODY_BACKGROUNDS[this.currentIndex];
+  };
+
+  // mousedown event
+  Slider.prototype.onStart = function (evt) {
+    this.isDragging = true;
+
+    this.currentX = evt.pageX || evt.touches[0].pageX;
+    this.startX = this.currentX;
+
+    var card = this.cards[this.currentIndex];
+
+    // calculate ration to use in parallax effect
+    this.windowWidth = window.innerWidth;
+    this.cardWidth = card.offsetWidth;
+    this.ratio = this.windowWidth / (this.cardWidth / 4);
+  };
+
+  // mouseup event
+  Slider.prototype.onEnd = function (evt) {
+    this.isDragging = false;
+
+    var diff = this.startX - this.currentX;
+    var direction = (diff > 0) ? 'left' : 'right';
+    this.startX = 0;
+
+    if (Math.abs(diff) > this.windowWidth / 4) {
+      if (direction === 'left') {
+        this.slideLeft();
+      } else if (direction === 'right') {
+        this.slideRight();
+      } else {
+        this.cancelMoveCard();
+      }
+
+    } else {
+      this.cancelMoveCard();
+
+    }
+
+  };
+
+  // mousemove event
+  Slider.prototype.onMove = function (evt) {
+    if (!this.isDragging) return;
+
+    this.currentX = evt.pageX || evt.touches[0].pageX;
+    var diff = this.startX - this.currentX;
+    diff *= -1;
+
+    // don't let drag way from the center more than quarter of window
+    if (Math.abs(diff) > this.windowWidth / 4) {
+      if (diff > 0) {
+        diff = this.windowWidth / 4;
+      } else {
+        diff = - this.windowWidth / 4;
+      }
+    }
+
+    this.moveCard(diff);
+  };
+
+  // slide to left direction
+  Slider.prototype.slideLeft = function () {
+    // if last don't do nothing
+    if (this.currentIndex === this.cards.length - 1) {
+      this.cancelMoveCard();
+      return;
+    }
+
+    var self = this;
+    var card = this.cards[this.currentIndex];
+    var cardWidth = this.windowWidth / 2;
+
+    card.style.left = '-50%';
+
+    this.resetCardElsPosition();
+
+    this.currentIndex += 1;
+    this.setActivePlaceholder();
+    card = this.cards[this.currentIndex];
+
+    card.style.left = '50%';
+
+    this.moveCardEls(cardWidth * 3);
+
+    // add delay to resetting position
+    setTimeout(function () {
+      self.resetCardElsPosition();
+    }, 50);
+  };
+
+  // slide to right direction
+  Slider.prototype.slideRight = function () {
+    // if last don't do nothing
+    if (this.currentIndex === 0) {
+      this.cancelMoveCard();
+      return;
+    }
+
+    var self = this;
+    var card = this.cards[this.currentIndex];
+    var cardWidth = this.windowWidth / 2;
+
+    card.style.left = '150%';
+
+    this.resetCardElsPosition();
+
+    this.currentIndex -= 1;
+    this.setActivePlaceholder();
+    card = this.cards[this.currentIndex];
+
+    card.style.left = '50%';
+
+    this.moveCardEls(-cardWidth * 3);
+
+    // add delay to resetting position
+    setTimeout(function () {
+      self.resetCardElsPosition();
+    }, 50);
+  };
+
+  // put active card in original position (center)
+  Slider.prototype.cancelMoveCard = function () {
+    var self = this;
+    var card = this.cards[this.currentIndex];
+
+    card.style.transition = 'transform 0.5s ease-out';
+    card.style.transform = '';
+
+    this.resetCardElsPosition();
+  };
+
+  // reset to original position elements of card
+  Slider.prototype.resetCardElsPosition = function () {
+    var self = this;
+    var card = this.cards[this.currentIndex];
+
+    var cardLogo = card.querySelector('.card__logo');
+    var cardPrice = card.querySelector('.card__price');
+    var cardTitle = card.querySelector('.card__title');
+    var cardSubtitle = card.querySelector('.card__subtitle');
+    var cardImage = card.querySelector('.card__image');
+    var cardWishList = card.querySelector('.card__wish-list');
+    var cardCategory = card.querySelector('.card__category');
+    var cardWillAnimate = card.querySelectorAll('.card__will-animate');
+
+    // move card elements to original position
+    cardWillAnimate.forEach(function (el) {
+      el.style.transition = 'transform 0.5s ease-out';
+    });
+
+    cardLogo.style.transform = '';
+    cardPrice.style.transform = '';
+
+    cardTitle.style.transform = '';
+    cardSubtitle.style.transform = '';
+
+    cardImage.style.transform = '';
+    cardWishList.style.transform = '';
+    cardCategory.style.transform = '';
+
+    // clear transitions
+    setTimeout(function () {
+      card.style.transform = '';
+      card.style.transition = '';
+
+      cardWillAnimate.forEach(function (el) {
+        el.style.transition = '';
+      });
+    }, 500);
+
+  };
+
+  // slide card while dragging
+  Slider.prototype.moveCard = function (diff) {
+
+    var card = this.cards[this.currentIndex];
+
+    card.style.transform = 'translateX(calc(' + diff + 'px - 50%))';
+    diff *= -1;
+
+    this.moveCardEls(diff);
+  };
+
+  // create parallax effect on card elements sliding them
+  Slider.prototype.moveCardEls = function (diff) {
+    var card = this.cards[this.currentIndex];
+
+    var cardLogo = card.querySelector('.card__logo');
+    var cardPrice = card.querySelector('.card__price');
+    var cardTitle = card.querySelector('.card__title');
+    var cardSubtitle = card.querySelector('.card__subtitle');
+    var cardImage = card.querySelector('.card__image');
+    var cardWishList = card.querySelector('.card__wish-list');
+    var cardCategory = card.querySelector('.card__category');
+    var cardWillAnimate = card.querySelectorAll('.card__will-animate');
+
+    cardLogo.style.transform = 'translateX(' + (diff / this.ratio) + 'px)';
+    cardPrice.style.transform = 'translateX(' + (diff / this.ratio) + 'px)';
+
+    cardTitle.style.transform = 'translateX(' + (diff / (this.ratio * 0.90)) + 'px)';
+    cardSubtitle.style.transform = 'translateX(' + (diff / (this.ratio * 0.85)) + 'px)';
+
+    cardImage.style.transform = 'translateX(' + (diff / (this.ratio * 0.35)) + 'px)';
+
+    cardWishList.style.transform = 'translateX(' + (diff / (this.ratio * 0.85)) + 'px)';
+    cardCategory.style.transform = 'translateX(' + (diff / (this.ratio * 0.65)) + 'px)';
+
+  };
+
+
+  // create slider
+  var slider = new Slider();
+
+})();
+
+    </script>
+
+  </body>
+</html>
+
+</body>
+</html>
