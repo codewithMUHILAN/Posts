@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <style>
       * {
     margin: 0;
@@ -23,8 +26,7 @@
   }
   
   button {
-    border: 0;
-    outline: 0;
+    border: 0;outline: 0;
   }
   
   .container {
@@ -48,6 +50,7 @@
         height: 600px;
       }
   }
+
   .container h2.title {
     font-size: 1.8rem;
     margin: 10px -5px;
@@ -56,15 +59,22 @@
     color: #ffffff;
     text-shadow: 0 10px 20px black;
   }
-  
   .result {
     position: relative;
     border: 0.5px solid white;
-
     width: 100%;
     height: 65px;
     overflow: hidden;
   }
+
+
+  .result__info.right {
+    right: 8px;
+  }
+  .result__info.left {
+    left: 8px;
+  }
+
   .result__info {
     position: absolute;
     bottom: 4px;
@@ -74,21 +84,16 @@
     transform: translateY(200%);
     opacity: 0;
   }
-  .result__info.right {
-    right: 8px;
-  }
-  .result__info.left {
-    left: 8px;
-  }
   .result__viewbox {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 
+    255, 0.08);    color: #fff;
     border-radius: 8px;
-    color: #fff;
     text-align: center;
     line-height: 65px;
   }
+
   .result #copy-btn {
     position: absolute;
     top: var(--y);
@@ -222,10 +227,11 @@
     color: #fff;
     margin-bottom: 8px;
   }
+
   .settings .setting input {
-    opacity: 0;
-    position: absolute;
+    opacity: 0;position: absolute;
   }
+
   .settings .setting input + label {
     user-select: none;
   }
@@ -280,7 +286,8 @@
     border-radius: 8px;
     color: #000;
     border: none;
-    background-image: linear-gradient(135deg, #00fffc 0%, #e08a27 100%);
+    background-image: linear-gradient(
+    135deg,#00fffc 0%, #e08a27 100%);
     letter-spacing: 1px;
     font-weight: bold;
     text-transform: uppercase;
@@ -298,50 +305,63 @@
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.08);
   }
   
-  .support {
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    padding: 10px;
-    display: flex;
-  }
   
-  a {
-    margin: 0 20px;
-    color: #fff;
-    font-size: 2rem;
-    transition: all 400ms ease;
-  }
-  
-  a:hover {
-    color: #222;
-  }
-  
-  .github-corner svg {
-    position: absolute;
-    right: 0;
-    top: 0;
-    mix-blend-mode: darken;
-    color: #eeeeee;
-    fill: #353535;
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
-  }
-  
-  .github-corner:hover .octo-arm {
-    animation: octocat-wave 0.56s;
-  }
-  
-  @keyframes octocat-wave {
-    0%, 100% {
-      transform: rotate(0);
-    }
-    20%, 60% {
-      transform: rotate(-20deg);
-    }
-    40%, 80% {
-      transform: rotate(10deg);
-    }
-  }
+/* -- YouTube Link Styles -- */
+
+#source-link {
+  top: 60px;
+}
+
+#source-link > i {
+  color: rgb(94, 106, 210);
+}
+
+#yt-link {  
+  top: 10px;
+}
+
+#yt-link > i {
+  color: rgb(219, 31, 106); 
+
+}
+
+.meta-link {
+  align-items: center;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;  
+  display: inline-flex;
+  gap: 5px;
+  left: 10px;
+  padding: 10px 20px;
+  position: fixed;
+  text-decoration: none;
+  transition: background-color 600ms, border-color 600ms;
+  z-index: 10000;
+}
+
+.meta-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.meta-link > i, .meta-link > span {
+  height: 20px;
+  line-height: 20px;
+}
+
+.meta-link > span {
+  color: white;
+  font-family: "Rubik", sans-serif;
+  transition: color 600ms;
+}
+
+
+
+
     </style>
     <style>
         
@@ -395,11 +415,18 @@
       </div>
       
       
-      <div class="support">
-        <a href="https://twitter.com/DevLoop01" target="_blank"><i class="fab fa-twitter-square"></i></a>
-        <a href="https://codepen.io/dev_loop/" target="_blank"><i class="fab fa-codepen"></i></a>
-      </div>
       
+  <!--Social Liks codings below-->
+    <a id="source-link" class="meta-link" href="https://t.me/+7yc_oGHnLJhlOWVl" target="_blank">
+      <i class="fas fa-link"></i>
+      <span class="roboto-mono">Join my Telegram</span>
+  </a>
+
+  <a id="yt-link" class="meta-link" href="https://www.youtube.com/@codewith_muhilan?sub_confirmation=1" target="_blank">
+    <i class="fab fa-youtube"></i>
+    <span>Subscribe my channel..❤</span>
+  </a>
+
 
 
     <script>
