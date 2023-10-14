@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    <style>
+        body{
+  background-color: #111517;
+  height:100vh;
+  color:#ddd
+}
+h1,h2,h3{
+  font-family:Oswald,sans-serif;
+}
+a{
+  text-decoration:none
+}
+header{
+  height:100%;
+  position:relative
+}
+header:after{
+  content:'';
+  background: url("https://github.com/codewithMUHILAN/Youtube/blob/main/FORMS/Transparent%20Login%20Form%20(21-09-23)/bg.jpg?raw=true") center no-repeat;
+  background-size:cover;
+  display:block;
+  width:100%;
+  height:100%;
+  opacity:0.3;
+  position:absolute;
+  z-index:-1
+}
+header h1{
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+  bottom:0;
+  margin:auto;
+  display:inline-block;
+  width:fit-content;
+  height:fit-content;
+  color:#00fffc;
+  font-size:6vw;
+  text-transform:uppercase;
+  transition:all 0.2s;
+  cursor:wait
+}
+header h1:hover{
+ text-shadow:0 0 10px #00fffc;
+}
+
+.navbar {
+position: absolute;
+width: 100%;
+height: 0;
+transition: background .5s ease
+}
+
+.navbar_brand {
+position: absolute;
+top: 30px;
+left: 30px;
+display: inline-block;
+z-index: 10;
+  font:600 3em/1 Oswald;
+  color:#fff
+}
+.navbar_brand:after {
+    content: attr(data-logo);
+    position: absolute;
+    left: 0;
+    transform: translate3d(50%,0,0);
+    width: 64px;
+    height: 32px;
+    visibility: hidden;
+    opacity: 0
+}
+
+.navbar_brand .brand_logo {
+display: inline-block;
+background-repeat: no-repeat;
+width: 64px;
+height: 32px
+}
+.navbar_brand .brand_logo,.navbar_brand:after {
+transition: opacity .3s ease,transform .3s ease,visibility .3s ease
+}
+.navbar_brand:hover .brand_logo {
+transform: translate3d(-50%,0,0);
+opacity: 0
+}
+
+.navbar_brand:hover:after {
+visibility: visible;
+opacity: 1;
+transform: translateZ(0);
+  color:#00fffc;
+  text-shadow:0 0 15px #00fffc;
+}
+
+
+.navbar_opener {
+display: inline-block;
+width: 64px;
+height: 48px;
+position: fixed;
+transform: rotate(0deg);
+cursor: pointer;
+top: 23px;
+right: 14px;
+z-index: 100;
+background: transparent;
+border: 0;
+  outline:0
+}
+.navbar_opener span {
+display: block;
+position: absolute;
+height: 3px;
+width: 32px;
+opacity: 1;
+left: 16px;
+transform: rotate(0deg);
+transition: .25s ease-in-out,background-color .3s ease-out;
+background: #fff
+}
+
+.navbar_opener span:first-child {
+top: 13px
+}
+
+.navbar_opener span:nth-child(2),.navbar_opener span:nth-child(3) {
+top: 21px
+}
+
+.navbar_opener span:nth-child(4) {
+top: 29px
+}
+
+.navbar_opener:hover span {
+background: #00fffc!important;
+  
+  box-shadow:0 0 5px #00fffc!important;
+}
+
+.navbar_opener-opened span {
+background: #fff!important
+}
+
+.navbar_opener-opened span:first-child,.navbar_opener-opened span:nth-child(4) {
+top: 21px;
+width: 0;
+left: 50%
+}
+
+.navbar_opener-opened span:nth-child(2) {
+transform: rotate(45deg)
+}
+
+.navbar_opener-opened span:nth-child(3) {
+transform: rotate(-45deg)
+}
+
+.navbar_opener-opened:hover span {
+background: #00fffc!important;
+}
+
+.navbar_brand,.navbar_opener,.navbar_title {
+transition: top .5s ease,opacity .5s ease
+}
+
+.navbar_menu {
+position: fixed;
+visibility: hidden;
+opacity: 0;
+top: 0;
+right: 0;
+left: 0;
+z-index: 10;
+background-color: #111517ee;
+height: 100%;
+width: 100%;
+transition: opacity .3s ease,visibility .3s ease;
+display: -ms-flexbox;
+display: flex;
+-ms-flex-direction: column;
+flex-direction: column;
+-ms-flex-pack: justify;
+justify-content: space-between
+}
+
+.navbar_menu .menu {
+margin-left: 30px;
+padding-top: 1.875rem
+}
+
+.navbar_menu .menu .menu_list {
+list-style: none;
+padding: 0;
+margin: 0 0 1.625rem;
+transition: opacity .3s ease-in;
+visibility: hidden;
+opacity: 0
+}
+
+.navbar_menu .menu .menu_item {
+padding: 0;
+margin: 0
+}
+
+.navbar_menu .menu .menu_item:before {
+display: none
+}
+
+.navbar_menu .menu .menu_item .menu_link {
+font-family: Maison Neue,sans-serif;
+font-weight: 300;
+font-size: 18px;
+font-size: 1.125rem;
+color: #888;
+text-decoration: none;
+line-height: 1.7777;
+transition: color .3s;
+position: relative;
+overflow: hidden;
+display: inline-block
+}
+
+.navbar_menu .menu .menu_item .menu_link:hover {
+    color: #fff;text-shadow:0 0 5px #00fffc;
+}
+
+.navbar_menu .menu .menu_item .menu_link-active {
+    color: #00fffc!important
+}
+
+.navbar_menu .menu .menu_item .menu_link-anim .link_layer {
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    background-color: #111517;
+    width: 100%;
+    display: block;
+    transform: translate3d(-100%,0,0);
+    animation: anim-out-layer .3s ease-out;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden
+}
+
+.navbar_menu .menu .menu_item .menu_link-anim .link_layer:before {
+    background-color: #111517;
+    content: attr(data-text);
+    width: 100%;
+    display: block;
+    transform: translate3d(100%,0,0);
+    color: #00fffc;
+    animation: anim-out-text .3s ease-out;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden
+}
+
+.navbar_menu .menu .menu_item .menu_link-anim:hover .link_layer {
+    animation: anim-in-layer .3s ease forwards
+}
+
+.navbar_menu .menu .menu_item .menu_link-anim:hover .link_layer:before {
+    animation: anim-in-text .3s ease forwards
+}
+
+.navbar_menu .menu .menu_item-big .menu_link {
+    font-family:Oswald,sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    font-size: 2rem;
+    text-transform: uppercase;
+    line-height: 1.22;
+    color: #fff
+}
+.navbar-fixed.navbar-opened {
+height: 100%
+}
+.navbar-opened .navbar_menu {
+visibility: visible;
+opacity: 1
+}
+
+.navbar-opened .menu .menu_list-main {
+animation: showNavigation .9s ease forwards;
+visibility: visible
+}
+
+.navbar-opened .menu .menu_list-alter {
+animation: showNavigation .9s .2s ease forwards;
+visibility: visible
+}
+.navbar_menu .social {
+    margin-left: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .3s ease-in;
+  text-align:right;
+  padding:35px
+}
+
+.navbar-opened .social {
+animation: showSocials .9s ease .4s forwards;
+visibility: visible
+}
+.social a{
+  color:#fff;
+  text-decoration:none;
+  font-size:28px;
+  display:inline-block;
+  width: 35px 
+}
+.social a:hover{
+  text-shadow:0 0 5px #00fffc;
+}
+.navbar-opened .navbar_opener span {
+background: #fff!important
+}
+
+.navbar-opened .navbar_opener span:first-child,.navbar-opened .navbar_opener span:nth-child(4) {
+top: 21px;
+width: 0;
+left: 50%
+}
+
+.navbar-opened .navbar_opener span:nth-child(2) {
+transform: rotate(45deg)
+}
+
+.navbar-opened .navbar_opener span:nth-child(3) {
+transform: rotate(-45deg)
+}
+
+.navbar-opened .navbar_opener:hover span {
+background: #00fffc!important
+}
+
+@keyframes showNavigation {
+0% {
+transform: translate3d(0,-40px,0);
+opacity: 0
+}
+
+to {
+transform: translateZ(0);
+opacity: 1
+}
+}
+
+@keyframes showSocials {
+0% {
+transform: translate3d(0,-40px,0);
+opacity: 0
+}
+
+to {
+transform: translateZ(0);
+opacity: 1
+}
+}
+
+@keyframes anim-in-layer {
+0% {
+transform: translate3d(-100%,0,0)
+}
+
+to {
+transform: translateZ(0)
+}
+}
+
+@keyframes anim-out-layer {
+0% {
+transform: translateZ(0)
+}
+
+to {
+transform: translate3d(100%,0,0)
+}
+}
+
+@keyframes anim-in-text {
+0% {
+transform: translate3d(100%,0,0)
+}
+
+to {
+transform: translateZ(0)
+}
+}
+
+@keyframes anim-out-text {
+0% {
+transform: translateZ(0)
+}
+
+to {
+transform: translate3d(-100%,0,0)
+}
+}
+
+#case{
+  height:80vh;
+  background-size:80%;
+  transition:all 0.84s;
+  position:relative;
+ 
+}
+
+#case:hover{
+  background-position: 100% 50%;
+}
+
+#case h2{
+  margin:0;
+  font:400 2.3em/1 Oswald;
+  text-transform:uppercase
+}
+#case:hover .case_text{
+  margin:35px;
+}
+.case_text{ 
+  transform:skew(-5deg);
+  background: rgba(0,0,0,.4);
+  width:80%;
+  max-width:400px;
+  padding:15px;
+  position:absolute;
+  margin:15px;
+  top:0;
+  transition:all 0.7s;
+}
+
+.case_text a{
+  display:inline-block;
+  padding:8px 15px;
+  background: #ddd;
+  font:600 1.2em/1 Oswald;
+  color:#000;
+  margin:10px 0;
+  mix-blend-mode: screen;
+}
+.case_text a:hover{
+  background: #ffffff;
+  box-shadow:0 0 10px #fffa
+}
+
+
+    /* -- YouTube Link Styles -- */
+
+    #source-link {
+      top: 60px;
+    }
+
+    #source-link>i {
+      color: rgb(94, 106, 210);
+    }
+
+    #yt-link {
+      top: 10px;
+    }
+
+    #yt-link>i {
+      color: rgb(219, 31, 106);
+
+    }
+
+    .meta-link {
+      align-items: center;
+      backdrop-filter: blur(3px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: inline-flex;
+      gap: 5px;
+      left: 40%;
+      padding: 10px 20px;
+      position: fixed;
+      text-decoration: none;
+      transition: background-color 600ms, border-color 600ms;
+      z-index: 10000;
+    }
+
+    .meta-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .meta-link>i,
+    .meta-link>span {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .meta-link>span {
+      color: white;
+      font-family: "Rubik", sans-serif;
+      transition: color 600ms;
+    }
+
+
+    </style>
+</head>
+<body>
+    <header class="page_header relative">
+        <div class="navbar">
+           <div class="navbar_header" >
+              <a class="navbar_brand" data-logo="LOGO" href="/"><span class="brand_logo"><span class="hide">LOGO</span></span></a><button class="navbar_opener"><span></span><span></span><span></span><span></span></button>
+           </div>
+           <div class="navbar_menu">
+              <nav class="menu" data-reactid="16">
+                 <ul class="menu_list menu_list-main" data-reactid="17">
+                    <li class="menu_item menu_item-big" data-reactid="18">
+                       <a class="menu_link menu_link-anim" href="/about" data-reactid="19">
+                          <span class="link_layer" data-text="About Us" data-reactid="20"></span>About Us
+                       </a>
+                    </li>
+                    <li class="menu_item menu_item-big" data-reactid="22">
+                       <a class="menu_link menu_link-anim" href="/services" data-reactid="23">
+                          <span class="link_layer" data-text="Services" data-reactid="24"></span>Services
+                       </a>
+                    </li>
+                    <li class="menu_item menu_item-big" data-reactid="26">
+                       <a class="menu_link menu_link-anim" href="/our-work" data-reactid="27">
+                          <span class="link_layer" data-text="Our Work" data-reactid="28"></span>Our Work
+                       </a>
+                    </li>
+                    <li class="menu_item menu_item-big" data-reactid="30">
+                       <a class="menu_link menu_link-anim" href="/careers" data-reactid="31">
+                          <span class="link_layer" data-text="Careers" data-reactid="32"></span>Careers
+                       </a>
+                    </li>
+                    <li class="menu_item menu_item-big" data-reactid="34">
+                       <a class="menu_link menu_link-anim" href="/contact" data-reactid="35">
+                          <span class="link_layer" data-text="Contact Us" data-reactid="36"></span>Contact Us
+                       </a>
+                    </li>
+                 </ul>
+                 <ul class="menu_list menu_list-alter" data-reactid="38">
+                    <li class="menu_item" data-reactid="39">
+                       <a class="menu_link" href="/blog" data-reactid="40">
+                          <span class="link_layer" data-text="Blog" data-reactid="41"></span>Blog
+                       </a>
+                    </li>
+                    <li class="menu_item" data-reactid="43">
+                       <a class="menu_link" href="/events" data-reactid="44">
+                          <span class="link_layer" data-text="Events" data-reactid="45"></span>Events
+                       </a>
+                    </li>
+                    <li class="menu_item" data-reactid="47">
+                       <a class="menu_link" href="/academy" data-reactid="48">
+                          <span class="link_layer" data-text="Training and Workshops" data-reactid="49"></span>Workshops
+                       </a>
+                    </li>
+                 </ul>
+              </nav>
+              <div class="social" >
+               <a href="#" class="fa fa-facebook"></a>
+     <a href="#" class="fa fa-twitter"></a>
+     <a href="#" class="fa fa-google"></a>
+     <a href="#" class="fa fa-linkedin"></a>
+     <a href="#" class="fa fa-youtube"></a>
+     <a href="#" class="fa fa-instagram"></a>
+              </div>
+           </div>
+        </div>
+       <section>
+         <h1 data-text="Muhilan">Subscribe For More</h1>
+       </section>
+     </header>
+     <section id="case">
+       <div class="case_text">
+       <h2>Case Study</h2>
+       <p>Streaming service  featured on every single platform we developed including Apple’s App Store, Google Play and Amazon Store.</p>
+       <a href="#">SEE CASE STUDY</a>
+         
+       </div>
+       
+     </section>
+
+
+     
+  <!--Social Liks codings below-->
+  <a id="source-link" class="meta-link" href="https://t.me/+7yc_oGHnLJhlOWVl" target="_blank">
+    <i class="fas fa-link"></i>
+    <span class="roboto-mono">Join my Telegram</span>
+  </a>
+
+  <a id="yt-link" class="meta-link" href="https://www.youtube.com/@codewith_muhilan?sub_confirmation=1" target="_blank">
+    <i class="fab fa-youtube"></i>
+    <span>Subscribe my channel..❤</span>
+  </a>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <script>
+        $('.navbar_opener').on('click',()=>{
+  $('.navbar').toggleClass('navbar-opened')
+})
+     </script>
+</body>
+</html>
