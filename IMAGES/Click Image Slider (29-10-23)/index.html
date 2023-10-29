@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@codewith_muhilan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    #container {
+      height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling:
+        touch;
+    }
+
+    svg {
+      position: fixed;
+    }
+
+
+    /* -- YouTube Link Styles -- */
+
+    #source-link {
+      top: 60px;
+    }
+
+    #source-link>i {
+      color: rgb(94, 106, 210);
+    }
+
+    #yt-link {
+      top: 10px;
+    }
+
+    #yt-link>i {
+      color: rgb(219, 31, 106);
+
+    }
+
+    .meta-link {
+      align-items: center;
+      backdrop-filter: blur(3px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: inline-flex;
+      gap: 5px;
+      left: 10px;
+      padding: 10px 20px;
+      position: fixed;
+      text-decoration: none;
+      transition: background-color 600ms, border-color 600ms;
+      z-index: 10000;
+    }
+
+    .meta-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .meta-link>i,
+    .meta-link>span {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .meta-link>span {
+      color: white;
+      font-family: "Rubik", sans-serif;
+      transition: color 600ms;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="container">
+    <svg width="100%" height="100%">
+      <mask id="m">
+        <circle id="c1" cx="40" cy="40" r="0" fill="#fff" />
+        <circle id="c0" cx="40" cy="40" r="0" fill="#fff" opacity="0.5" />
+      </mask>
+      <g id="imgFg"></g>
+      <g id="imgBg" mask="url(#m)">
+      </g>
+    </svg>
+  </div>
+
+
+  <!--Social Liks codings below-->
+  <a id="source-link" class="meta-link" href="https://t.me/+7yc_oGHnLJhlOWVl" target="_blank">
+    <i class="fas fa-link"></i>
+    <span class="roboto-mono">Join my Telegram</span>
+  </a>
+
+  <a id="yt-link" class="meta-link" href="https://www.youtube.com/@codewith_muhilan?sub_confirmation=1" target="_blank">
+    <i class="fab fa-youtube"></i>
+    <span>Subscribe my channel..❤</span>
+  </a>
+
+
+  <script src="https://unpkg.co/gsap@3/dist/gsap.min.js"></script>
+  <script>
+    console.clear()
+    const stage = document.querySelector('svg')
+    const imgFg = document.querySelector('#imgFg')
+    const imgBg = document.querySelector('#imgBg')
+    const imgs = [
+      'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=2000&q=50',
+      'https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?w=2000&q=50',
+      'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=2000&q=50',
+      'https://images.unsplash.com/photo-1502657877623-f66bf489d236?w=2000&q=50',
+      'https://images.unsplash.com/photo-1506361797048-46a149213205?w=2000&q=50'
+    ]
+    const pos = { x: innerWidth / 2, y: innerHeight / 2 }
+
+    for (let i = 0; i < imgs.length; i++) {
+      const img = document.createElementNS("http://www.w3.org/2000/svg", "image")
+      imgBg.appendChild(img)
+      gsap.set(img, { attr: { x: '-5%', y: '-5%', width: '110%', height: '110%', href: imgs[i], preserveAspectRatio: 'xMidYMid slice' } })
+    }
+
+    window.addEventListener('resize', () => {
+      pos.x = innerWidth / 2
+      pos.y = innerHeight / 2
+      gsap.set('circle', { duration: 0.3, attr: { cx: pos.x, cy: pos.y } })
+    })
+
+    stage.addEventListener('mouseenter', (e) => {
+      loop.pause()
+      stage.addEventListener('mousemove', mouseFollow)
+      mouseClickOn()
+    })
+
+    stage.addEventListener('mouseleave', (e) => {
+      mouseClickOff()
+      stage.removeEventListener('mousemove', mouseFollow)
+      pos.x = innerWidth / 2
+      pos.y = innerHeight / 2
+      gsap.to('circle', { attr: { cx: pos.x, cy: pos.y }, ease: 'power2.inOut' })
+      gsap.to(imgFg.children[0], { attr: { x: '-5%', y: '-5%' } })
+      loop.play(0)
+    })
+
+    function mouseClickOn() {
+      stage.addEventListener('mousedown', maskConstrict)
+      stage.addEventListener('mouseup', nextImg)
+    }
+
+    function mouseClickOff() {
+      stage.removeEventListener('mousedown', maskConstrict)
+      stage.removeEventListener('mouseup', nextImg)
+    }
+
+    function mouseFollow(e) {
+      pos.x = e.pageX
+      pos.y = e.pageY
+      gsap.to('circle', { duration: 0.3, attr: { cx: pos.x, cy: pos.y } })
+      gsap.to(imgFg.children[0], {
+        attr: {
+          x: gsap.utils.interpolate('0%', '-10%', pos.x / innerWidth),
+          y: gsap.utils.interpolate('0%', '-10%', pos.y / innerHeight)
+        }
+      })
+    }
+
+    function maskConstrict(e) {
+      gsap.to('circle', { duration: 0.3, attr: { r: (i) => [30, 50][i] } })
+    }
+
+    function nextImg() {
+      mouseClickOff()
+      gsap.timeline()
+        .to('circle', { duration: 0.4, attr: { r: innerWidth }, ease: 'power3.in', stagger: -0.1 })
+        .add(() => {
+          imgFg.append(imgBg.children[imgBg.children.length - 1])
+          imgBg.prepend(imgFg.children[0])
+          gsap.set('circle', { attr: { r: 0 } })
+        })
+        .fromTo('circle', { attr: { r: 0, cx: pos.x, cy: pos.y } }, { attr: { r: (i) => [35, 45][i] }, ease: 'power2.inOut', stagger: -0.1 }, 0.5)
+        .add(mouseClickOn)
+    }
+
+    // function scaleImg(t){
+    //   gsap.fromTo(t, {scale:1, transformOrigin:'50%'}, {duration:4, scale:1.1, rotate:0.05, ease:'none'})
+    // }
+
+    imgFg.append(imgBg.children[imgBg.children.length - 1])
+    gsap.fromTo('circle', { attr: { cx: pos.x, cy: pos.y } }, { attr: { r: (i) => [35, 45][i] }, ease: 'power2.inOut' })
+    // scaleImg(imgFg.children[0])
+    // scaleImg(imgBg.children[imgBg.children.length-1])
+
+    const loop = gsap.timeline({ repeatRefresh: true, repeat: -1 })
+      .add(maskConstrict, 3)
+      .add(nextImg, 3.15)
+  </script>
+</body>
+
+</html>
