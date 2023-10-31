@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@codewith_muhilan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <style>
+    * {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #ffffff;
+      min-height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #131313;
+    }
+
+    .container {
+      width: auto;
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 17px;
+      border-radius: 9px;
+      user-select: none;
+    }
+
+    #Display-area {
+      width: 100%;
+      margin: 3vh 0;
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: repeat(2, minmax(40px, auto));
+      word-wrap: break-word;
+      border-bottom: 1px rgba(128, 128, 128, 0.116) solid;
+    }
+
+    #Display-area .currentInput {
+      /* display: flex; */
+      text-align: right;
+      height: 8vh;
+      color: white;
+      font-size: xx-large;
+      line-height: 2;
+      word-wrap: break-word;
+      font-weight: bold;
+    }
+
+    #Display-area .answerScreen {
+      text-align: right;
+      color: rgba(150, 150, 150, 0.87);
+      height: 7px;
+      line-height: 3;
+      font-size: larger;
+    }
+
+    .keypad-btns {
+      display: grid;
+      grid: repeat(5, 90px) / repeat(4, 130px);
+      grid-row-gap: 20px;
+      grid-column-gap: 20px;
+    }
+
+    .keypad-btns button {
+      outline: none;
+      border: none;
+      border-radius: 8px;
+      background-color: #474b6b;
+      color: #fff;
+      font-size: x-large;
+      font-weight: bold;
+    }
+
+    .keypad-btns .fun_btn {
+      color: #000;
+      background: #00fffc;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    #clear {
+      background: rgb(249, 161, 21);
+    }
+
+    @media only screen and (max-width: 600px) {
+      body {
+        background-color: #131313;
+        align-items: flex-start;
+      }
+    }
+
+
+    /* -- YouTube Link Styles -- */
+
+    #source-link {
+      top: 60px;
+    }
+
+    #source-link>i {
+      color: rgb(94, 106, 210);
+    }
+
+    #yt-link {
+      top: 10px;
+    }
+
+    #yt-link>i {
+      color: rgb(219, 31, 106);
+
+    }
+
+    .meta-link {
+      align-items: center;
+      backdrop-filter: blur(3px);
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      display: inline-flex;
+      gap: 5px;
+      left: 10px;
+      padding: 10px 20px;
+      position: fixed;
+      text-decoration: none;
+      transition: background-color 600ms, border-color 600ms;
+      z-index: 10000;
+    }
+
+    .meta-link:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .meta-link>i,
+    .meta-link>span {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .meta-link>span {
+      color: white;
+      font-family: "Rubik", sans-serif;
+      transition: color 600ms;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <section id="Display-area">
+      <div class="currentInput"></div>
+      <div class="answerScreen">0</div>
+    </section>
+    <section class="keypad-btns">
+      <button type="button" class="fun_btn" value="%">%</button>
+      <button type="button" class="fun_btn" id="erase" value="">
+        &#11013;
+      </button>
+      <button type="button" class="fun_btn" value="/">/</button>
+      <button type="button" class="fun_btn" id="clear" value="">
+        AC
+      </button>
+      <button type="button" class="num_btn" value="7">7</button>
+      <button type="button" class="num_btn" value="8">8</button>
+      <button type="button" class="num_btn" value="9">9</button>
+      <button type="button" class="fun_btn" value="*">x</button>
+      <button type="button" class="num_btn" value="4">4</button>
+      <button type="button" class="num_btn" value="5">5</button>
+      <button type="button" class="num_btn" value="6">6</button>
+      <button type="button" class="fun_btn" value="-">-</button>
+      <button type="button" class="num_btn" value="1">1</button>
+      <button type="button" class="num_btn" value="2">2</button>
+      <button type="button" class="num_btn" value="3">3</button>
+      <button type="button" class="fun_btn" value="+">+</button>
+      <button type="button" class="num_btn" value="00">00</button>
+      <button type="button" class="num_btn" value="0">0</button>
+      <button type="button" class="num_btn" value=".">.</button>
+      <button type="button" class="fun_btn" id="evaluate" value="">=</button>
+    </section>
+  </div>
+
+
+  <!--Social Liks codings below-->
+  <a id="source-link" class="meta-link" href="https://t.me/+7yc_oGHnLJhlOWVl" target="_blank">
+    <i class="fas fa-link"></i>
+    <span class="roboto-mono">Join my Telegram</span>
+  </a>
+
+  <a id="yt-link" class="meta-link" href="https://www.youtube.com/@codewith_muhilan?sub_confirmation=1" target="_blank">
+    <i class="fab fa-youtube"></i>
+    <span>Subscribe my channel..❤</span>
+  </a>
+
+  <script>
+    let currentInput = document.querySelector('.currentInput');
+    let answerScreen = document.querySelector('.answerScreen');
+    let buttons = document.querySelectorAll('button');
+    let erasebtn = document.querySelector('#erase');
+    let clearbtn = document.querySelector('#clear');
+    let evaluate = document.querySelector('#evaluate');
+    let realTimeScreenValue = []
+
+    clearbtn.addEventListener("click", () => {
+      realTimeScreenValue = [''];
+      answerScreen.innerHTML = 0;
+      currentInput.className = 'currentInput'
+      answerScreen.className = 'answerScreen';
+      answerScreen.style.color = " rgba(150, 150, 150, 0.87)";
+    })
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // when clicked button is not erased button 
+        if (!btn.id.match('erase')) {
+          // To display value on btn press
+          realTimeScreenValue.push(btn.value)
+          console.log(realTimeScreenValue)
+          currentInput.innerHTML = realTimeScreenValue.join('');
+
+          // To evaluate answer in real time
+          if (btn.classList.contains('num_btn')) {
+            if ((eval(realTimeScreenValue.join(''))).toString().length > 8) {
+              answerScreen.innerHTML = (eval(realTimeScreenValue.join(''))).toFixed(5);
+            }
+
+            else {
+              console.log((eval(realTimeScreenValue.join(''))).toString().length)
+              answerScreen.innerHTML = eval(realTimeScreenValue.join(''));
+            }
+          }
+        }
+
+        // When erase button is clicked
+        if (btn.id.match('erase')) {
+          realTimeScreenValue.pop();
+          currentInput.innerHTML = realTimeScreenValue.join('');
+          answerScreen.innerHTML = eval(realTimeScreenValue.join(''));
+        }
+
+        // When clicked button is evaluate button
+        if (btn.id.match('evaluate')) {
+          currentInput.className = 'answerScreen';
+          answerScreen.className = 'currentInput';
+          answerScreen.style.color = "white";
+        }
+
+        // To prevent undefined error in screen
+        if (typeof eval(realTimeScreenValue.join('')) == 'undefined') {
+          answerScreen.innerHTML = 0
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
