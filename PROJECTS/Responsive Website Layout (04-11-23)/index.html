@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@codewith_muhilan</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      background: #100F0F;
+      color: #696d6d;
+      font-family: 'Barlow Semi Condensed', sans-serif;
+    }
+
+    body.abrido {
+      overflow: hidden
+    }
+
+    #header-main {
+      position: fixed;
+      box-shadow: 0 0 0 0 rgba(243, 243, 243, 1) inset;
+      height: 100px;
+      width: 100%;
+      z-index: 99;
+      transition: all .2s;
+    }
+
+    #header-main.arre {
+      position: fixed;
+      box-shadow: 0 93px 0 0 rgba(243, 243, 243, 1) inset;
+    }
+
+    .brand {
+      position: absolute;
+      top: .6em;
+      left: 2em;
+      z-index: 6;
+      font-family: sans-serif;
+      text-transform: uppercase;
+      color: #ddd;
+      font-weight: 600;
+      font-size: 2em;
+      padding: .2em .5em;
+      border: 2px solid rgba(200, 200, 200, 0);
+      text-decoration: none;
+      margin: 0;
+      transition: .2s
+    }
+
+    .brand:hover,
+    .abrido .brand {
+      border: 2px solid rgba(200, 200, 200, 1);
+    }
+
+    .arre .brand {
+      color: #333
+    }
+
+    .arre .brand:hover {
+      border: 2px solid rgba(60, 60, 60, .7);
+    }
+
+    #burger {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      height: 20px;
+      display: block;
+      width: 20px;
+      padding: 10px;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0);
+      border: 4px solid rgba(255, 255, 255, 0);
+      border-radius: 3px;
+      z-index: 5;
+    }
+
+    #burger span {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      top: 50%;
+      margin-top: -1px;
+      left: 0;
+      display: block;
+      background: #ddd;
+      transition: .4s;
+    }
+
+    #burger:hover {
+      background: #eee;
+      border-color: #eee
+    }
+
+    #burger:hover span {
+      background-color: #333 !important
+    }
+
+    #burger span:first-child {
+      top: 3px;
+    }
+
+    #burger span:last-child {
+      top: 17px;
+    }
+
+    #burger:hover {
+      cursor: pointer;
+    }
+
+    #burger.abrido span {
+      opacity: 0;
+      top: 50%;
+      transform: rotate(45deg);
+      background-color: #fff
+    }
+
+
+    #burger.abrido span:first-child {
+      opacity: 1;
+      transform: rotate(45deg);
+    }
+
+    #burger.abrido span:last-child {
+      opacity: 1;
+      transform: rotate(-45deg);
+    }
+
+    #nav-main {
+      background: rgba(45, 45, 45, 0);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      z-index: 3;
+      transition: .4s;
+      transition-delay: .5s;
+      overflow: hidden;
+    }
+
+    #nav-main ul {
+      text-align: center;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      top: 27vh;
+      left: 0;
+      right: 0;
+      padding: 0;
+    }
+
+    #nav-main ul li {
+      opacity: 0;
+      position: relative;
+      transform: translateY(15px);
+      transition: .5s;
+      transition-delay: 0s;
+      list-style: none;
+      display: inline-block;
+      width: fit-content
+    }
+
+    #nav-main li a {
+      text-decoration: none;
+      text-transform: uppercase;
+      color: #dc3545;
+      font-weight: 700;
+      font-family: sans-serif;
+      display: block;
+      padding: 20px;
+      font-size: 2em
+    }
+
+    #nav-main a:hover {
+      color: #fff
+    }
+
+    #nav-main ul ul {
+      text-align: left;
+      top: 20px;
+      left: auto;
+      right: -100px;
+      padding: 0;
+      margin: 0px !important;
+    }
+
+    #nav-main li ul li {
+      opacity: 1;
+      transform: translateX(-80px);
+      transform-origin: 0% center -20px;
+      width: 0px;
+      white-space: nowrap;
+      overflow: hidden
+    }
+
+    #nav-main li ul a {
+      font-size: 1.3em;
+      padding: 10px 0 0 30px;
+    }
+
+    #nav-main ul li:hover li {
+      opacity: 1;
+      width: 120px;
+      transform: translateX(0px);
+    }
+
+    #nav-main.abrido {
+      height: 100%;
+      background: #020304e0;
+      transition-delay: 0s;
+    }
+
+    #nav-main.abrido>ul>li {
+      opacity: 1;
+      transform: translateY(0px);
+      transition-delay: .5s;
+    }
+
+    #nav-foot {
+      display: flex;
+      padding: 20px 0;
+      position: absolute;
+      bottom: -50px;
+      left: 15px;
+      right: 15px;
+      text-align: center;
+      transition: .4s;
+      opacity: 0;
+      visibility: hidden;
+      color: rgba(255, 255, 255, 0.9);
+      border-top: 1px solid
+    }
+
+    .abrido #nav-foot {
+      bottom: 0;
+      opacity: 1;
+      visibility: visible;
+      transition: 1.4s;
+    }
+
+    #nav-foot .col {
+      width: 20vw
+    }
+
+    #nav-foot h5 {
+      font-weight: 900;
+      font-size: 1em;
+      margin: 0 0 .5em 0
+    }
+
+    #nav-foot .nav-social {
+      text-align: right;
+    }
+
+    #nav-foot .nav-social a {
+      transform-style: preserve-3d;
+      color: #ddd;
+      padding: 5px 10px;
+      font-size: 1.8rem;
+      text-decoration: none;
+    }
+
+    #nav-foot .nav-social a i {
+      display: inline-block;
+      position: relative;
+      top: 0;
+      transition: .2s;
+    }
+
+    #nav-foot .nav-social a:hover i {
+      color: #dc3545;
+      top: -5px;
+      transition: .2s;
+      animation: flpp infinite 5s;
+    }
+
+    @keyframes flpp {
+      0% {
+        transform: rotateY(0deg);
+      }
+
+      50% {
+        transform: rotateY(180deg);
+      }
+
+      100% {
+        transform: rotateY(0deg);
+      }
+    }
+
+
+    #content {
+      position: relative;
+      padding-top: 30vh;
+      background: #0d111d url(https://images.unsplash.com/photo-1486625703180-884c5c453194?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ&s=b86b1f769150f99a2478177efc9678a2) center no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      z-index: 1
+    }
+
+    #content:after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: rgba(16, 15, 25, 1);
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: .8;
+      z-index: -1
+    }
+
+    #content article {
+      width: 60vw;
+      min-width: 300px;
+      color: #ddd;
+      text-align: center;
+      font-size: 2em;
+      font-style: italic;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, .7)
+    }
+
+    #foot {
+      padding-top: 20vh;
+      height: 80vh;
+      text-align: center
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <header id="header-main">
+    <a href="#" class="brand">MUHILAN</a>
+    <a href="#" id="burger"> <span></span> <span></span> <span></span> </a>
+
+    <nav id="nav-main">
+      <ul>
+        <li><a href="#">PROJECTS</a>
+          <ul>
+            <li><a href="#">Link #1</a></li>
+            <li><a href="#">Link #2</a></li>
+            <li><a href="#">Link #3</a></li>
+          </ul>
+        </li>
+        <li><a href="#">ABOUT US</a></li>
+        <li><a href="#">CONTACT</a></li>
+      </ul>
+      <div id="nav-foot">
+
+        <div class="col">
+          <h5>JUAREZ</h5> (555) 1204 0433
+        </div>
+        <div class="col">
+          <h5>LONDON</h5> (555) 1107 2691
+        </div>
+        <div class="col">
+          <h5>NEWYORK</h5> (555) 257 0482
+        </div>
+        <div class="col-6 nav-social">
+          <a href="#"><i class="fa fa-instagram"></i></a>
+          <a href="#"><i class="fa fa-facebook-official"></i></a>
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-whatsapp"></i></a>
+        </div>
+
+      </div>
+    </nav>
+  </header>
+  <section id="content">
+    <article>
+      <h1>We are Creative</h1>
+
+      <p>Building the future of brands with amazing UX</p>
+    </article>
+  </section>
+  <section id="foot">
+
+
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+
+    $(window).scroll(function () {
+
+      let oppai = $(this).scrollTop();
+
+      $('#content article').css({ opacity: 100 / oppai, filter: 'blur(' + oppai / 100 + 'px)' });
+      $('#content').css({ opacity: 100 / oppai });
+
+      if (oppai > 190) {
+        if (!$('body').hasClass('abrido'))
+          $('#header-main').addClass('arre');
+      }
+      else {
+        $('#header-main').removeClass('arre');
+      }
+    });
+
+    $('#burger').on('click', function (e) {
+
+      e.preventDefault();
+
+      $('#nav-main, body, #burger').toggleClass('abrido');
+
+      if ($('#header-main').hasClass('arre')) { $('#header-main').removeClass('arre').addClass('arreno'); }
+      else if ($('#header-main').hasClass('arreno')) {
+        $('#header-main').removeClass('arreno');
+        setTimeout(() => { $('#header-main').addClass('arre') }, 800);
+      }
+
+    });
+
+  </script>
+</body>
+
+</html>
